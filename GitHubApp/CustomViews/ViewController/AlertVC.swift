@@ -12,7 +12,7 @@ class AlertVC: UIViewController {
     
     let containerView = UIView()
     let alertTitleLabel = GHTitleLabel(textAlignment: .center, fontSize: 24)
-    let messageLabel = UILabel()
+    let messageLabel = GHBodyLabel(textAlignment: .center, numberOfLines: 3)
     let ghButton = GHButton(title: "Dismiss", backgroundColor: .systemGreen)
     
     
@@ -34,9 +34,8 @@ class AlertVC: UIViewController {
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
         configureContainerView()
         configureAlertTitle()
-        configureMessage()
         configureGHButton()
-        
+        configureMessage()
     }
     
     
@@ -58,7 +57,7 @@ class AlertVC: UIViewController {
     }
     
     func configureAlertTitle() {
-        containerView.addSubview(alertTitleLabel) // interesting
+        containerView.addSubview(alertTitleLabel)
         NSLayoutConstraint.activate([
             alertTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
             alertTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
@@ -68,18 +67,14 @@ class AlertVC: UIViewController {
         ])
     }
     
+    
     func configureMessage() {
         containerView.addSubview(messageLabel)
-        messageLabel.font = UIFont.systemFont(ofSize: 17)
-        messageLabel.textColor = UIColor.label
-        messageLabel.textAlignment = .center
-        messageLabel.numberOfLines = 3 // this is the max size
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: alertTitleLabel.bottomAnchor, constant: 4),
             messageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10 ),
-            messageLabel.heightAnchor.constraint(equalToConstant: 52) // 3 times the height of the font
+            messageLabel.bottomAnchor.constraint(equalTo: ghButton.topAnchor, constant: -10)
         ])
         
         
@@ -91,7 +86,7 @@ class AlertVC: UIViewController {
         containerView.addSubview(ghButton)
         ghButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ghButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10),
+            ghButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
             ghButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             ghButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
             ghButton.heightAnchor.constraint(equalToConstant: 42)
