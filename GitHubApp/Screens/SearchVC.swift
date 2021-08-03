@@ -75,11 +75,7 @@ class SearchVC: UIViewController {
     
     @objc func pushFollowerListVC() {
         guard !isUsernameEmpty else {
-//            print("invalid req")
-            let alertVC = AlertVC(title: "!", message: "Please enter a valid username", buttonTitle: "Dismiss")
-            alertVC.modalPresentationStyle = .overFullScreen
-            alertVC.modalTransitionStyle = .crossDissolve
-            present(alertVC, animated: true)
+            presentGHAlertOnMainThread(title: "!", message: "Please enter a valid username", buttonTitle: "Dismiss")
             return
            
             

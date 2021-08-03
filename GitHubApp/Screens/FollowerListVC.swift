@@ -11,6 +11,7 @@ class FollowerListVC: UIViewController {
     
     enum Section { case main }
     var username: String!
+    var followers: [Followers] = []
     var page = 1
     
     var collectionView: UICollectionView!
@@ -70,12 +71,21 @@ class FollowerListVC: UIViewController {
     }
     
     func getFollowersList(username: String, page: Int) {
-        NetworkManager.shared.getFollowers(username: username, page: page) { result in
+        NetworkManager.shared.getFollowers(username: username, page: page) { [weak self] result in
+            
+            guard let self = self else { return }
+            
             switch result {
             case .failure(let error):
-                print(error)
+                self.presentGHAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Ok")
             case .success(let followers):
-                print(followers)
+                self.followers.append(contentsOf: followers)
+                
+                if self.followers.isEmpty {
+                    // TODO: 1. Create an empty state custom view
+                    // TODO: 2. show this empty view in this ViewController
+                    let message = "This user has no followers. Go follow them!"
+                }
             }
         }
     }
