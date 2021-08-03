@@ -29,6 +29,7 @@ class FollowerListVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         getFollowersList(username: username, page: page)
+        configureCollectionView()
     }
     
     
@@ -44,9 +45,13 @@ class FollowerListVC: UIViewController {
     }
     
     private func configureCollectionView() {
-        
-       //TO DO: Flow layout 
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnLayout() )
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        collectionView.register(FollowersCollectionViewCell.self, forCellWithReuseIdentifier: FollowersCollectionViewCell.reuseID)
+        view.addSubview(collectionView)
+        
+        
     }
     
     private func createThreeColumnLayout() -> UICollectionViewFlowLayout {
@@ -61,6 +66,7 @@ class FollowerListVC: UIViewController {
         flowlayout.itemSize = CGSize(width: itemSize, height: itemSize)
         
         return flowlayout
+        
     }
     
     func getFollowersList(username: String, page: Int) {
@@ -75,4 +81,8 @@ class FollowerListVC: UIViewController {
     }
     
 
+}
+
+extension FollowerListVC: UICollectionViewDelegate {
+    
 }
