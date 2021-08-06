@@ -18,7 +18,7 @@ class NetworkManager {
         
     }
 
-   
+   // *ask* Result type. generics
     func getFollowers(username: String, page: Int, completion: @escaping (Result<[Followers], GHError>) -> Void) {
         let endPoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         

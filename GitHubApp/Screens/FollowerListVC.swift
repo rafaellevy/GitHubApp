@@ -55,6 +55,8 @@ class FollowerListVC: UIViewController {
         
     }
     
+    // TODO: configure the datasource
+    
     private func createThreeColumnLayout() -> UICollectionViewFlowLayout {
         let width = view.bounds.width
         let padding: CGFloat = 12
@@ -82,13 +84,18 @@ class FollowerListVC: UIViewController {
                 self.followers.append(contentsOf: followers)
                 
                 if self.followers.isEmpty {
-                    // TODO: 1. Create an empty state custom view
-                    // TODO: 2. show this empty view in this ViewController
-                    let message = "This user has no followers. Go follow them!"
+                    DispatchQueue.main.async {
+                        let emptyStateView = EmptyStateView(message: "This user has no followers! Go follow them")
+                        emptyStateView.frame = self.view.bounds
+                        self.view.addSubview(emptyStateView)
+                    }
                 }
+                
+                // TODO: create a function to take the list of followers and present them (snapshot)
             }
         }
     }
+
     
 
 }

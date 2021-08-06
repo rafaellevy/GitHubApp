@@ -18,4 +18,7 @@ extension UIViewController {
         }
     }
     
+    // TODO: create a function to put the empty state in the view
+    
+    
 }

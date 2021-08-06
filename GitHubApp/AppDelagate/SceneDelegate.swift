@@ -39,9 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: favoritesVC)
     }
     
-//    func createEmptySearchVC() -> UIViewController {
-//        
-//    }
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
