@@ -36,9 +36,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let favoritesVC = FavoritesVC()
         favoritesVC.title = " Favorites"
         favoritesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        // *ask* how come 
         return UINavigationController(rootViewController: favoritesVC)
     }
+    
+//    func createEmptySearchVC() -> UIViewController {
+//        
+//    }
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()

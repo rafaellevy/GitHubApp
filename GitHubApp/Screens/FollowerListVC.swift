@@ -93,6 +93,6 @@ class FollowerListVC: UIViewController {
 
 }
 
+
 extension FollowerListVC: UICollectionViewDelegate {
-    
 }
