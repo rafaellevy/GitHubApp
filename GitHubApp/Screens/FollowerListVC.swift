@@ -29,8 +29,9 @@ class FollowerListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        getFollowersList(username: username, page: page)
         configureCollectionView()
+        configureDataSource()
+        getFollowersList(username: username, page: page)
     }
     
     
@@ -55,7 +56,22 @@ class FollowerListVC: UIViewController {
         
     }
     
-    // TODO: configure the datasource
+    
+    
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section,Followers>(collectionView: collectionView, cellProvider: { collection, indexPath, follower in
+            let cell = collection.dequeueReusableCell(withReuseIdentifier: FollowersCollectionViewCell.reuseID, for: indexPath) as! FollowersCollectionViewCell
+            cell.set(follower: follower)
+            return cell
+        })
+    }
+    
+    private func updateData(followers: [Followers]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Followers>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(followers, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+    }
     
     private func createThreeColumnLayout() -> UICollectionViewFlowLayout {
         let width = view.bounds.width
@@ -84,19 +100,19 @@ class FollowerListVC: UIViewController {
                 self.followers.append(contentsOf: followers)
                 
                 if self.followers.isEmpty {
-                    DispatchQueue.main.async {
-                        let emptyStateView = EmptyStateView(message: "This user has no followers! Go follow them")
-                        emptyStateView.frame = self.view.bounds
-                        self.view.addSubview(emptyStateView)
-                    }
+                    self.presentEmptyStateView(message: "This user has no followers! Go follow them")
+                }
+                DispatchQueue.main.async {
+                    self.updateData(followers: self.followers)
+                    // TODO: create a function to take the list of followers and present them (snapshot)
                 }
                 
-                // TODO: create a function to take the list of followers and present them (snapshot)
             }
         }
     }
 
-    
+  
+
 
 }
 

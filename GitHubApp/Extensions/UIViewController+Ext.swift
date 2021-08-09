@@ -20,5 +20,12 @@ extension UIViewController {
     
     // TODO: create a function to put the empty state in the view
     
-    
+    func presentEmptyStateView(message: String) {
+        DispatchQueue.main.async {
+            let emptyStateView = EmptyStateView(message: message)
+            emptyStateView.frame = self.view.bounds
+            self.view.addSubview(emptyStateView)
+        }
+
+    }
 }
