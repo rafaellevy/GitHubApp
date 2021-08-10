@@ -20,6 +20,7 @@ class GHTitleLabel: UILabel {
         self.init(frame: .zero)
         font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
         self.textAlignment = textAlignment
+        
     }
     
     required init?(coder: NSCoder) {
@@ -28,8 +29,8 @@ class GHTitleLabel: UILabel {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        
         textColor = UIColor.label
+        adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
     }

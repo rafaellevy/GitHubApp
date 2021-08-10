@@ -9,11 +9,15 @@ import UIKit
 
 class FollowerListVC: UIViewController {
     
+    /// section
     enum Section { case main }
+    
+    /// proprieties
     var username: String!
     var followers: [Followers] = []
     var page = 1
     
+    /// Collection View and DataSource
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Followers>!
     
@@ -52,8 +56,6 @@ class FollowerListVC: UIViewController {
         collectionView.delegate = self
         collectionView.register(FollowersCollectionViewCell.self, forCellWithReuseIdentifier: FollowersCollectionViewCell.reuseID)
         view.addSubview(collectionView)
-        
-        
     }
     
     
@@ -82,7 +84,7 @@ class FollowerListVC: UIViewController {
         
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowlayout.itemSize = CGSize(width: itemSize, height: itemSize)
+        flowlayout.itemSize = CGSize(width: itemSize, height: itemSize + 25)
         
         return flowlayout
         
@@ -104,7 +106,6 @@ class FollowerListVC: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.updateData(followers: self.followers)
-                    // TODO: create a function to take the list of followers and present them (snapshot)
                 }
                 
             }
@@ -118,4 +119,16 @@ class FollowerListVC: UIViewController {
 
 
 extension FollowerListVC: UICollectionViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let screenHeight = scrollView.frame.size.height
+    
+        
+        if offsetY > contentHeight - screenHeight {
+            page += 1
+            getFollowersList(username: username, page: page)
+        }
+        
+    }
 }
