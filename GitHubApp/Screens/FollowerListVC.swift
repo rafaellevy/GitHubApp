@@ -51,7 +51,10 @@ class FollowerListVC: UIViewController {
     }
     
     private func configureCollectionView() {
+        
+        // createCompositionalLayout() should replace createThreeColumnLayout()
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnLayout() )
+        
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.register(FollowersCollectionViewCell.self, forCellWithReuseIdentifier: FollowersCollectionViewCell.reuseID)
@@ -75,6 +78,7 @@ class FollowerListVC: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
     }
     
+    
     private func createThreeColumnLayout() -> UICollectionViewFlowLayout {
         let width = view.bounds.width
         let padding: CGFloat = 12
@@ -88,6 +92,43 @@ class FollowerListVC: UIViewController {
         
         return flowlayout
         
+    }
+    
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout {
+            sectionIndex, layoutEnvironment in
+            // what do to here?
+            let compSection = section.main[sectionIndex]
+            switch compSection.type {
+            default:
+                return self.createFeaturedSection(using: compSection)
+            }
+        }
+        
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 20
+        layout.configuration = config
+        return layout
+    }
+    
+    private func createMainSection(using section: Section) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        ///  pading 
+        //layoutItem.contentInsets = NSDirectionalEdgeInsets(top: <#T##CGFloat#>, leading: <#T##CGFloat#>, bottom: <#T##CGFloat#>, trailing: <#T##CGFloat#>)
+        
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(350))
+        
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [layoutItem])
+        
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        
+        /// configuration scrolling /  of the section is done here
+        
+        //layoutSection.orthogonalScrollingBehavior = .none
+        
+        return layoutSection
     }
     
     func getFollowersList(username: String, page: Int) {
