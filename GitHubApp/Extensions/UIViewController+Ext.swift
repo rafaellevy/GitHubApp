@@ -18,7 +18,6 @@ extension UIViewController {
         }
     }
     
-    // TODO: create a function to put the empty state in the view
     
     func presentEmptyStateView(message: String) {
         DispatchQueue.main.async {
@@ -28,4 +27,39 @@ extension UIViewController {
         }
 
     }
+    
+    func showLoadingView() {
+        var spinner = UIActivityIndicatorView(style: .medium)
+        
+        let containerView = UIView(frame: view.bounds)
+        
+        view.addSubview(containerView)
+        containerView.addSubview(spinner)
+        
+        containerView.backgroundColor = .systemBackground
+        
+        containerView.alpha = 0
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        UIView.animate(withDuration: 0.25) {
+            containerView.alpha = 0.8
+        }
+        
+        spinner.startAnimating()
+        
+    }
+    
+    func dismissLoadingView() {
+                
+        // todo: hack global
+        
+    }
+
+    
 }
