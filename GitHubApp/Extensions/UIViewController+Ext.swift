@@ -7,6 +7,8 @@
 
 import UIKit
 
+fileprivate var containerView: UIView!
+
 extension UIViewController {
     
     func presentGHAlertOnMainThread(title: String, message: String, buttonTitle: String) {
@@ -29,35 +31,38 @@ extension UIViewController {
     }
     
     func showLoadingView() {
-        var spinner = UIActivityIndicatorView(style: .medium)
         
-        let containerView = UIView(frame: view.bounds)
-        
+        containerView = UIView(frame: view.bounds)
         view.addSubview(containerView)
-        containerView.addSubview(spinner)
         
         containerView.backgroundColor = .systemBackground
-        
         containerView.alpha = 0
-        
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
         
         UIView.animate(withDuration: 0.25) {
             containerView.alpha = 0.8
         }
+
+        let spinner = UIActivityIndicatorView(style: .large)
+        containerView.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
         
         spinner.startAnimating()
         
     }
     
     func dismissLoadingView() {
-                
-        // todo: hack global
+        DispatchQueue.main.async {
+            containerView.removeFromSuperview()
+            containerView = nil
+        }
+        
+        
+
         
     }
 
