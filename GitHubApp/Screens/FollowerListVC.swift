@@ -49,6 +49,13 @@ class FollowerListVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = username
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+
+    }
+    
+    @objc private func addTapped() {
+        
+    
     }
     
     private func configureCollectionView() {

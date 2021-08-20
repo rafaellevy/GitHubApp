@@ -58,4 +58,19 @@ class NetworkManager {
         task.resume()
         
     }
+    
+    // TODO: finish this function . case success , send the user. 
+    
+    func getUserInfo(for username: String, completion: @escaping ( Result<User,GHError>)  -> Void)  {
+        
+        let endPoint = baseUrl + "\(username)"
+        
+        guard let url = URL(string: endPoint) else {
+            completion(.failure(.invalidUsername))
+            return
+            
+        }
+        
+        
+    }
 }
