@@ -54,8 +54,18 @@ class FollowerListVC: UIViewController {
     }
     
     @objc private func addTapped() {
-        
-    
+        NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .failure(let error):
+                self.presentGHAlertOnMainThread(title: "Ops. Something went wrong", message: error.rawValue, buttonTitle: "dismiss")
+            case .success(let user):
+                let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
+            }
+        }
     }
     
     private func configureCollectionView() {

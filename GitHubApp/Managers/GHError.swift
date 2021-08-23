@@ -12,4 +12,5 @@ enum GHError: String, Error {
     case invalidReq = "invalid request"
     case invalidRes = "invalid Response"
     case invalidData = "invalid Data"
+    case unableToSave = "Unable to save this user"
 }
