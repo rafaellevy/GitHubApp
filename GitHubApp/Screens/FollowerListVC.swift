@@ -64,6 +64,15 @@ class FollowerListVC: UIViewController {
                 self.presentGHAlertOnMainThread(title: "Ops. Something went wrong", message: error.rawValue, buttonTitle: "dismiss")
             case .success(let user):
                 let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
+                PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] persistenceError in
+                    guard let self = self else { return }
+                    guard let error = persistenceError else {
+                        self.presentGHAlertOnMainThread(title: "Success!", message: "You have successfully saved this user", buttonTitle: "Ok")
+                        return
+                    }
+                    self.presentGHAlertOnMainThread(title: "Error!", message: error.rawValue, buttonTitle: "ok")
+                    
+                }
             }
         }
     }

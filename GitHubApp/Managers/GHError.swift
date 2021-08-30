@@ -13,4 +13,6 @@ enum GHError: String, Error {
     case invalidRes = "invalid Response"
     case invalidData = "invalid Data"
     case unableToSave = "Unable to save this user"
+    case unableToRetrieveFavorites = "Unable to retrieve favorites. Please try again"
+    case favoriteAlreadyExists = "This user has already been favorited"
 }

@@ -24,6 +24,7 @@
 		A7456F582696536E007C1E71 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7456F572696536E007C1E71 /* FavoritesVC.swift */; };
 		A75086A826A61AD20025215C /* GHError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75086A726A61AD20025215C /* GHError.swift */; };
 		A7B18BF326B34E400061CBBF /* FollowersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B18BF226B34E400061CBBF /* FollowersCollectionViewCell.swift */; };
+		A7BD000F26DD8C750084B31A /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BD000E26DD8C750084B31A /* FavoriteCell.swift */; };
 		A7BE87B3269CE9410005D4C0 /* GHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE87B2269CE9410005D4C0 /* GHTextField.swift */; };
 		A7CAC33C269F86A10085DD24 /* GHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAC33B269F86A10085DD24 /* GHButton.swift */; };
 		A7CAC33E269F8E700085DD24 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAC33D269F8E700085DD24 /* Followers.swift */; };
@@ -73,6 +74,7 @@
 		A7456F572696536E007C1E71 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		A75086A726A61AD20025215C /* GHError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHError.swift; sourceTree = "<group>"; };
 		A7B18BF226B34E400061CBBF /* FollowersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCollectionViewCell.swift; sourceTree = "<group>"; };
+		A7BD000E26DD8C750084B31A /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		A7BE87B2269CE9410005D4C0 /* GHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHTextField.swift; sourceTree = "<group>"; };
 		A7CAC33B269F86A10085DD24 /* GHButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHButton.swift; sourceTree = "<group>"; };
 		A7CAC33D269F8E700085DD24 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				A7B18BF226B34E400061CBBF /* FollowersCollectionViewCell.swift */,
+				A7BD000E26DD8C750084B31A /* FavoriteCell.swift */,
 			);
 			name = Cells;
 			path = ViewController/Cells;
@@ -424,6 +427,7 @@
 				A7B18BF326B34E400061CBBF /* FollowersCollectionViewCell.swift in Sources */,
 				1A3F3C3326B9E351003167E6 /* UIViewController+Ext.swift in Sources */,
 				7055AA0426BCFEAA000466C8 /* EmptyStateView.swift in Sources */,
+				A7BD000F26DD8C750084B31A /* FavoriteCell.swift in Sources */,
 				A7456F2826964EE9007C1E71 /* SceneDelegate.swift in Sources */,
 				70E3992B26D04C26001865ED /* User.swift in Sources */,
 			);
