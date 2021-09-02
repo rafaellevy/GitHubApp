@@ -8,12 +8,17 @@
 import UIKit
 
 class FavoriteCell: UITableViewCell {
-    
+    static let reuseID = "FavoriteTableViewCell"
     //TODO: add avatar, usernamelabel
-
+    
+    let usernameLabel = GHTitleLabel(textAlignment: .right, fontSize: 16)
+    let avatarImageView = GHAvatarImageView(frame: .zero)
+    
+    		
+    // do we have awake from nib ?
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // Initialization code 
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,9 +29,23 @@ class FavoriteCell: UITableViewCell {
     
     // TODO: set function using the follower object
     func set(favorite: Followers) {
-        
+        usernameLabel.text = favorite.login
+        avatarImageView.downloadImage(from: favorite.avatarUrl)
     }
     
     // TODO: Configure function
+    func configure() {
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(usernameLabel)
+        
+        let padding: CGFloat = 8
+        
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
+            constant: padding)
+        ])
+    }
+    
+    
 
 }
