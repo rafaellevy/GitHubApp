@@ -12,7 +12,7 @@ class FavoriteTableViewCell: UITableViewCell {
     static let reuseID = "FavoriteTableViewCell"
     //TODO: add avatar, usernamelabel
     
-    let usernameLabel = GHTitleLabel(textAlignment: .right, fontSize: 16)
+    let usernameLabel = GHTitleLabel(textAlignment: .right, fontSize: 15)
     let avatarImageView = GHAvatarImageView(frame: .zero)
     
 
