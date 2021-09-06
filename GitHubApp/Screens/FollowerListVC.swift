@@ -172,7 +172,7 @@ class FollowerListVC: UIViewController {
     func getFollowersList(username: String, page: Int) {
         showLoadingView()
         NetworkManager.shared.getFollowers(username: username, page: page) { [weak self] result in
-            
+            //what's this ? *ask*
             guard let self = self else { return }
             self.dismissLoadingView()
             
@@ -213,7 +213,7 @@ extension FollowerListVC: UICollectionViewDelegate {
 
 extension FollowerListVC: UISearchBarDelegate, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        // NOTE: reset the search when the searchtext is empty
+        // MARK: reset the search when the searchtext is empty
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
             updateData(followers: followers)
             return
