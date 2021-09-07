@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+// TODO: change color to green
+// customize nav bar right button. 
 class FollowerListVC: UIViewController {
     
     /// section
@@ -49,7 +50,7 @@ class FollowerListVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = username
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addTapped))
 
     }
     
@@ -172,7 +173,6 @@ class FollowerListVC: UIViewController {
     func getFollowersList(username: String, page: Int) {
         showLoadingView()
         NetworkManager.shared.getFollowers(username: username, page: page) { [weak self] result in
-            //what's this ? *ask*
             guard let self = self else { return }
             self.dismissLoadingView()
             

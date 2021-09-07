@@ -77,20 +77,25 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    // TODO: Add delete functionality to the tableview
-    // TODO: use the persistence manager to delete that favorite
-    // TODO: Update the UI with the new favorites
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let favoriteToRemove = favorites[indexPath.row]
                 favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-            // UserDefaults * should I call save and pass the array ?
-            PersistenceManager.updateWith(favorite: favorites[indexPath.row], actionType: .remove) {
+            PersistenceManager.updateWith(favorite: favoriteToRemove, actionType: .remove) { [weak self]
                 error in
-        
+                guard let self = self else {
+                    return
+                }
+                guard let error = error else {
+                    return
+                }
+                
+                self.presentGHAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Dismiss")
             }
             
             }
-        tableView.reloadData()
+        
     }
 }

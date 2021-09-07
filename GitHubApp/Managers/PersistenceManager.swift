@@ -20,7 +20,7 @@ enum PersistenceManager {
         static let favorites = "favorites"
     }
     
-    // why do we have updateWith? *ask*
+    
     static func updateWith(favorite: Followers, actionType: PersistenceActionType, completionHandler: @escaping (GHError?) -> Void) {
         retrieveFavorites { result in
             switch result {
