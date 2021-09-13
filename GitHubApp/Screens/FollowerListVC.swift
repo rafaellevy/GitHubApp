@@ -6,8 +6,7 @@
 //
 
 import UIKit
-// TODO: change color to green
-// customize nav bar right button. 
+
 class FollowerListVC: UIViewController {
     
     /// section
@@ -45,12 +44,16 @@ class FollowerListVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.systemGreen
     }
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = username
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addTapped))
+        let sfButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = sfButton
+//        navigationItem.rightBarButtonItem?.tintColor = .green
+        
 
     }
     
