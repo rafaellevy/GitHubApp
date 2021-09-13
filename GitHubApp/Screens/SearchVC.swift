@@ -78,8 +78,6 @@ class SearchVC: UIViewController {
             presentGHAlertOnMainThread(title: "!", message: "Please enter a valid username", buttonTitle: "Dismiss")
             return
            
-            
-
         }
         let followerListVC = FollowerListVC(username: userNameTextField.text!)
         navigationController?.pushViewController(followerListVC, animated: true)

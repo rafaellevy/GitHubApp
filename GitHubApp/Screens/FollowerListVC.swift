@@ -7,6 +7,9 @@
 
 import UIKit
 
+// TODO: refactor addTapped function
+// TODO : if the person is already favorited, make the button reflects that
+
 class FollowerListVC: UIViewController {
     
     /// section
@@ -17,9 +20,14 @@ class FollowerListVC: UIViewController {
     var followers: [Followers] = []
     var page = 1
     
+    /// navigation bar button toggle
+    
+    var isfavorited = false
+    
     /// Collection View and DataSource
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Followers>!
+    var addButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
     
     init(username: String) {
         super.init(nibName: nil, bundle: nil)
@@ -50,40 +58,68 @@ class FollowerListVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = username
-        let sfButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(addTapped))
+       
+        addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        addButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        addButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        let sfButton = UIBarButtonItem(customView: addButton)
         navigationItem.rightBarButtonItem = sfButton
 //        navigationItem.rightBarButtonItem?.tintColor = .green
-        
-
     }
     
     @objc private func addTapped() {
-        NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .failure(let error):
-                self.presentGHAlertOnMainThread(title: "Ops. Something went wrong", message: error.rawValue, buttonTitle: "dismiss")
-            case .success(let user):
-                let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
-                PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] persistenceError in
-                    guard let self = self else { return }
-                    guard let error = persistenceError else {
-                        self.presentGHAlertOnMainThread(title: "Success!", message: "You have successfully saved this user", buttonTitle: "Ok")
-                        return
+        isfavorited.toggle()
+        addButton.isSelected = isfavorited
+        
+        if isfavorited {
+            NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+                
+                switch result {
+                case .failure(let error):
+                    self.presentGHAlertOnMainThread(title: "Ops. Something went wrong", message: error.rawValue, buttonTitle: "dismiss")
+                case .success(let user):
+                    let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
+                    PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] persistenceError in
+                        guard let self = self else { return }
+                        guard let error = persistenceError else {
+                            self.presentGHAlertOnMainThread(title: "Success!", message: "You have successfully saved this user", buttonTitle: "Ok")
+                            return
+                        }
+                        self.presentGHAlertOnMainThread(title: "Error!", message: error.rawValue, buttonTitle: "ok")
+                        
                     }
-                    self.presentGHAlertOnMainThread(title: "Error!", message: error.rawValue, buttonTitle: "ok")
-                    
+                }
+            }
+        } else {
+            NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+                
+                switch result {
+                case .failure(let error):
+                    self.presentGHAlertOnMainThread(title: "Ops. Something went wrong", message: error.rawValue, buttonTitle: "dismiss")
+                case .success(let user):
+                    let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
+                    PersistenceManager.updateWith(favorite: favorite, actionType: .remove) { [weak self] persistenceError in
+                        guard let self = self else { return }
+                        guard let error = persistenceError else {
+                            self.presentGHAlertOnMainThread(title: "Success!", message: "You have successfully removed this user", buttonTitle: "Ok")
+                            return
+                        }
+                        self.presentGHAlertOnMainThread(title: "Error!", message: error.rawValue, buttonTitle: "ok")
+                        
+                    }
                 }
             }
         }
+        
     }
     
     private func configureCollectionView() {
-        
-        
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createMainLayout() )
         
         collectionView.backgroundColor = .systemBackground
