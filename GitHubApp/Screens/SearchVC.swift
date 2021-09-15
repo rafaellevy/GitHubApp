@@ -79,9 +79,22 @@ class SearchVC: UIViewController {
             return
            
         }
-        let followerListVC = FollowerListVC(username: userNameTextField.text!)
-        navigationController?.pushViewController(followerListVC, animated: true)
-        
+        NetworkManager.shared.getUserInfo(for: userNameTextField.text!) { [weak self] userResult in
+            switch userResult {
+            case .failure(let error):
+                print(error.rawValue)
+            case .success(let user):
+                let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
+                PersistenceManager.checkExistence(of: favorite) { [weak self] isFavoritedResult in
+                    guard let self = self else { return }
+                    let followerListVC = FollowerListVC(username: self.userNameTextField.text!, isFavorited: isFavoritedResult)
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(followerListVC, animated: true)
+                    }
+                   
+                }
+            }
+        }
     }
     
     

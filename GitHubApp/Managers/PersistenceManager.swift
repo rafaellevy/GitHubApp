@@ -67,6 +67,21 @@ enum PersistenceManager {
             completionHandler(.failure(.unableToRetrieveFavorites))
         }
     }
+    
+    static func checkExistence(of favorite: Followers, completionHandler: @escaping (Bool) -> Void) {
+        retrieveFavorites { result in
+            switch result {
+            case .success(let favorites):
+                completionHandler(favorites.contains(favorite))
+            case .failure:
+                completionHandler(false)
+            }
+            
+        }
+    }
+    
+    
+    
 }
 
 
