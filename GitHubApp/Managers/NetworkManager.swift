@@ -5,7 +5,7 @@
 //  Created by Rafael Levy on 7/14/21.
 //
 
-import Foundation
+import UIKit
 
 
 class NetworkManager {
@@ -13,11 +13,11 @@ class NetworkManager {
     // Singleton 
     static let shared = NetworkManager()
     private let baseUrl: String = "https://api.github.com/users/"
+    private let cache = NSCache<NSString, UIImage>()
     
-    private init() {
-        
-    }
+    private init() {}
 
+    
    
     func getFollowers(username: String, page: Int, completion: @escaping (Result<[Followers], GHError>) -> Void) {
         let endPoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
@@ -96,8 +96,31 @@ class NetworkManager {
             
         }.resume()
         
+    
+    }
+    
+    func downloadImage(from urlString: String, completionHandler: @escaping (UIImage?) -> Void) {
+        let cacheKey = NSString(string: urlString)
+        if let image = cache.object(forKey: cacheKey) {
+            completionHandler(image)
+            return
+        }
         
+        guard let url = URL(string: urlString) else {
+            return
+        }
         
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+           
+            guard let self = self, error == nil , let response = response as? HTTPURLResponse, response.statusCode == 200, let data = data, let image = UIImage(data: data) else {
+                completionHandler(nil)
+                return
+            }
+              
+            self.cache.setObject(image, forKey: cacheKey)
+            completionHandler(image)
+            
+        }.resume()
     }
     
     

@@ -87,8 +87,8 @@ class SearchVC: UIViewController {
                 let favorite = Followers(login: user.login, avatarUrl: user.avatarUrl)
                 PersistenceManager.checkExistence(of: favorite) { [weak self] isFavoritedResult in
                     guard let self = self else { return }
-                    let followerListVC = FollowerListVC(username: self.userNameTextField.text!, isFavorited: isFavoritedResult)
                     DispatchQueue.main.async {
+                        let followerListVC = FollowerListVC(username: self.userNameTextField.text!, isFavorited: isFavoritedResult)
                         self.navigationController?.pushViewController(followerListVC, animated: true)
                     }
                    
