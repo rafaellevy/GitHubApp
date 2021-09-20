@@ -28,7 +28,13 @@ class GHAvatarImageView: UIImageView {
     }
     
     func downloadAndSetImage(from url: String) {
-        // TODO: call the network manager and set the image
+        NetworkManager.shared.downloadImage(from: url) { [weak self ] uiImage in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.image = uiImage
+
+            }
+        }
     }
     
     

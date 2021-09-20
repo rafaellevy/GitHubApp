@@ -11,7 +11,7 @@ class FavoritesVC: UIViewController {
     
     let tableView = UITableView()
     var favorites: [Followers] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -35,6 +35,8 @@ class FavoritesVC: UIViewController {
         tableView.dataSource = self
         
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseID)
+        
+        
     }
     
     func getFavorites() {
@@ -48,7 +50,7 @@ class FavoritesVC: UIViewController {
                     self.presentEmptyStateView(message: "No favorites. Add your favorite users")
                 } else {
                     self.favorites = favorites
-                    print(self.favorites)
+                    //                    print(self.favorites)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                         // bring tableview on top of empty state
@@ -60,8 +62,8 @@ class FavoritesVC: UIViewController {
         }
     }
     
-
-
+    
+    
 }
 
 extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
@@ -81,8 +83,8 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let favoriteToRemove = favorites[indexPath.row]
-                favorites.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            favorites.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             PersistenceManager.updateWith(favorite: favoriteToRemove, actionType: .remove) { [weak self]
                 error in
                 guard let self = self else {
@@ -95,7 +97,11 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
                 self.presentGHAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "Dismiss")
             }
             
-            }
-        
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let followerListVC = FollowerListVC(username: favorites[indexPath.row].login, isFavorited: true)
+        self.navigationController?.pushViewController(followerListVC, animated: true)
     }
 }

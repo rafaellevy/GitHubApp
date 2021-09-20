@@ -7,8 +7,6 @@
 
 import UIKit
 
-// TODO: refactor addTapped function
-// TODO : if the person is already favorited, make the button reflects that
 
 class FollowerListVC: UIViewController {
     

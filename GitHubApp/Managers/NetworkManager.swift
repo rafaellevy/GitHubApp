@@ -13,6 +13,7 @@ class NetworkManager {
     // Singleton 
     static let shared = NetworkManager()
     private let baseUrl: String = "https://api.github.com/users/"
+    // Cache
     private let cache = NSCache<NSString, UIImage>()
     
     private init() {}
