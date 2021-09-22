@@ -70,6 +70,7 @@ class UserHeaderVC: UIViewController {
     
     func configureAvatarImageView() {
         containerView.addSubview(avatarImageView)
+//        avatarImageView.downloadAndSetImage(from: user.avatarUrl)
         NetworkManager.shared.downloadImage(from: user.avatarUrl) { image in
             self.avatarImageView.image = image
         }
@@ -110,8 +111,7 @@ class UserHeaderVC: UIViewController {
     
     func configureLocationIcon() {
         containerView.addSubview(locationIcon)
-//        locationIcon.image = UIView
-//        addButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        locationIcon.image = UIImage(systemName: "location")
 //        NSLayoutConstraint.activate([
 //            locationIcon.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
 //            locationIcon.leadingAnchor.constraint(equalTo: locationIcon.leadingAnchor, constant: 10),
@@ -123,6 +123,7 @@ class UserHeaderVC: UIViewController {
     
     func configureBioLabel() {
         view.addSubview(bioLabel)
+        bioLabel.text = user.bio
 //        NSLayoutConstraint.activate([
 //            bioLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
 //            bioLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
