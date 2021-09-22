@@ -251,6 +251,12 @@ extension FollowerListVC: UICollectionViewDelegate {
             getFollowersList(username: username, page: page)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let follower = dataSource.itemIdentifier(for: indexPath) else { return }
+        let destVC = UserVC(username: follower.login)
+        present(destVC, animated: true)
+    }
 }
 
 extension FollowerListVC: UISearchBarDelegate, UISearchResultsUpdating {
