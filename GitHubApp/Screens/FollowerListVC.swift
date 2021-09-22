@@ -81,7 +81,6 @@ class FollowerListVC: UIViewController {
     
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createMainLayout() )
-        
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.register(FollowersCollectionViewCell.self, forCellWithReuseIdentifier: FollowersCollectionViewCell.reuseID)

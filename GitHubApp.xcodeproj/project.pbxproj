@@ -276,7 +276,7 @@
 				7087AD8326E1902100F90722 /* FavoriteTableViewCell.swift */,
 			);
 			name = Cells;
-			path = /Users/rafaellevy/Code/gitHubApp/GitHubApp/GitHubApp/CustomViews/Cells;
+			path = /Users/ultraviral/Code/gitHubApp/GitHubApp/GitHubApp/CustomViews/Cells;
 			sourceTree = "<absolute>";
 		};
 		A7D3FB4326BDDA8B0090A2CF /* Views */ = {
