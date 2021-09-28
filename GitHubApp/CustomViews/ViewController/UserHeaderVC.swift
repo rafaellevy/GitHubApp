@@ -36,10 +36,18 @@ class UserHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureAvatarImageView()
+        configureUsernameLabel()
+        configureNameLabel()
+        configureLocationIcon()
+        configureLocationLabel()
+        configureBioLabel()
         // Do any additional setup after loading the view.
+        
     }
     
+   
+   
     
     
     func configureAvatarImageView() {
@@ -48,8 +56,8 @@ class UserHeaderVC: UIViewController {
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 80),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 80)
+            avatarImageView.heightAnchor.constraint(equalToConstant: 90),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 90)
         ])
     }
     
@@ -80,7 +88,7 @@ class UserHeaderVC: UIViewController {
     }
     
     func configureLocationIcon() {
-        containerView.addSubview(locationIcon)
+        view.addSubview(locationIcon)
         locationIcon.image = UIImage(systemName: "mappin.and.ellipse")
         NSLayoutConstraint.activate([
             locationIcon.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
